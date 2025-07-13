@@ -12,7 +12,7 @@ const Projects: React.FC = () => {
       title: 'Smart Vending Machine',
       description: 'An automated tea and coffee vending system powered by ESP32 and IoT.',
       longDescription: 'This project involves building a smart vending machine that dispenses tea and coffee on demand using an ESP32 microcontroller. It features an intuitive user interface built with React, real-time order processing via MQTT protocol, temperature monitoring, water level sensing, OLED display feedback, and Telegram bot integration for remote control. Designed with efficiency and modularity in mind, this system bridges embedded hardware and modern web technology for seamless user experience.',
-      image: 'src/data/img/Modern Creative Webinar Facebook Post.png',
+      image: 'mobin/src/data/img/Modern Creative Webinar Facebook Post.png',
       category: 'IoT',
       tags: ['ESP32', 'MicroPython', 'Payment API', 'MQTT', 'HTTP'],
       date: '2024',
