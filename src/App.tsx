@@ -19,7 +19,7 @@ function App() {
           <Navbar />
           <AnimatePresence mode="wait">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/mobin" element={<Home />} />
               <Route path="/skills" element={<Skills />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/resume" element={<Resume />} />
