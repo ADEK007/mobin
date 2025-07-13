@@ -316,7 +316,7 @@ const Home: React.FC = () => {
               <motion.div whileHover={{ scale: 1.05 }} className="relative overflow-hidden rounded-2xl shadow-2xl">
                 <img
                   src="src\data\img\IMG_20240513_123827_902-01.jpeg.jpg"
-                  alt="Alex Johnson"
+                  alt="Hasibul Hassan Mobin"
                   className="w-full h-96 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
