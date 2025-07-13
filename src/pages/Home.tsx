@@ -315,7 +315,7 @@ const Home: React.FC = () => {
             <div className="relative">
               <motion.div whileHover={{ scale: 1.05 }} className="relative overflow-hidden rounded-2xl shadow-2xl">
                 <img
-                  src="src\data\img\IMG_20240513_123827_902-01.jpeg.jpg"
+                  src="data\img\IMG_20240513_123827_902-01.jpeg.jpg"
                   alt="Hasibul Hassan Mobin"
                   className="w-full h-96 object-cover"
                 />
