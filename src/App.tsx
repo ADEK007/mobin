@@ -14,7 +14,7 @@ import { ToastProvider } from './context/ToastContext';
 function App() {
   return (
     <ToastProvider>
-      <Router>
+      <Router basename="/mobin">
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-blue-50">
           <Navbar />
           <AnimatePresence mode="wait">
