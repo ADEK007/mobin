@@ -46,13 +46,31 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      const response = await fetch('https://clkbx.com/management_admin/con.php', {
 
-    showToast('Message sent successfully! I\'ll get back to you soon.', 'success');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        showToast('Message sent successfully!', 'success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        showToast('Failed to send message. Please try again.', 'error');
+      }
+    } catch (error) {
+      showToast('Error sending message. Please try again later.', 'error');
+    }
+
     setIsSubmitting(false);
   };
+
 
   const contactInfo = [
     {
