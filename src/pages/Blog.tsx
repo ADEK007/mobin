@@ -13,11 +13,11 @@ const events = [
     date: 'Sunday, 29 December 2024',
     location: 'Dhaka',
     images: [
-      { blogImg1 },
-      { blogImg2 }
+      blogImg1,
+      blogImg2,
     ],
     details:
-      'I represented my university in the national science fest, showcasing embedded system projects. It was an opportunity to gain exposure and connect with like-minded innovators.'
+      'I represented my university in the national science fest, showcasing embedded system projects. It was an opportunity to gain exposure and connect with like-minded innovators.',
   },
   {
     id: 2,
@@ -26,14 +26,13 @@ const events = [
     date: 'Tuesday, 12 November 2024',
     location: 'Dhaka',
     images: [
-      { blogImg3 }
-
+      blogImg3,
     ],
     details:
-      'The event featured keynote speakers and recognized leadership contributions. I was honored for academic and community service efforts.'
-  }
-
+      'The event featured keynote speakers and recognized leadership contributions. I was honored for academic and community service efforts.',
+  },
 ];
+
 
 const Blog: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
