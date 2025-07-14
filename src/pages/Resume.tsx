@@ -96,7 +96,7 @@ const Resume: React.FC = () => {
           </p>
 
           <motion.a
-            href="MD_HASIBUL_HASSAN_MOBIN.pdf" // Make sure resume.pdf is inside your public folder
+            href="/MD_HASIBUL_HASSAN_MOBIN.pdf" // Make sure resume.pdf is inside your public folder
             download="MD_HASIBUL_HASSAN_MOBIN.pdf"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
