@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+// Import your event images
+import blogImg1 from '../data/img/IMG_20241229_095332 (1).jpg';
+import blogImg2 from '../data/img/IMG_20241229_131616 (1).jpg';
+import blogImg3 from '../data/img/466880280_3937403366508140_3057152795093697454_n (1) (1).jpg';
 
 const events = [
   {
@@ -9,8 +13,8 @@ const events = [
     date: 'Sunday, 29 December 2024',
     location: 'Dhaka',
     images: [
-      'src/data/img/IMG_20241229_095332 (1).jpg',
-      'src/data/img/IMG_20241229_131616 (1).jpg'
+      { blogImg1 },
+      { blogImg2 }
     ],
     details:
       'I represented my university in the national science fest, showcasing embedded system projects. It was an opportunity to gain exposure and connect with like-minded innovators.'
@@ -22,7 +26,7 @@ const events = [
     date: 'Tuesday, 12 November 2024',
     location: 'Dhaka',
     images: [
-      'src/data/img/466880280_3937403366508140_3057152795093697454_n (1) (1).jpg'
+      { blogImg3 }
 
     ],
     details:

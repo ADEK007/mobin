@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Filter, X, Calendar, Tag } from 'lucide-react';
+// Import your project images
+import proImg1 from '../data/img/Modern Creative Webinar Facebook Post.png';
+import proImg2 from '../data/img/Modern Creative Webinassr Facebook Post.png';
+import proImg3 from '../data/img/awe.png';
+import proImg4 from '../data/img/Modern Creative Webinar Facebook Post (1).png';
+import proImg5 from '../data/img/erawer.png';
+import proImg6 from '../data/img/Screenshot 2024-08-12 104540.png';
+import proImg7 from '../data/img/Modern Creative Webinar Facebook Post (2).png';
 
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
@@ -12,7 +20,7 @@ const Projects: React.FC = () => {
       title: 'Smart Vending Machine',
       description: 'An automated tea and coffee vending system powered by ESP32 and IoT.',
       longDescription: 'This project involves building a smart vending machine that dispenses tea and coffee on demand using an ESP32 microcontroller. It features an intuitive user interface built with React, real-time order processing via MQTT protocol, temperature monitoring, water level sensing, OLED display feedback, and Telegram bot integration for remote control. Designed with efficiency and modularity in mind, this system bridges embedded hardware and modern web technology for seamless user experience.',
-      image: 'src/data/img/Modern Creative Webinar Facebook Post.png',
+      image: { proImg1 },
       category: 'IoT',
       tags: ['ESP32', 'MicroPython', 'Payment API', 'MQTT', 'HTTP'],
       date: '2024',
@@ -25,7 +33,7 @@ const Projects: React.FC = () => {
       title: 'Manufacturing worker safety device',
       description: 'Developed a real-time safety monitoring system using sensors, Wi-Fi, and alerts with optimized battery management for manufacturing worker safety',
       longDescription: 'Developed an end-to-end real-time safety monitoring system aimed at enhancing manufacturing worker safety. The system integrates multiple environmental and physiological sensors to track conditions such as gas levels, temperature, motion, and worker activity. Data is continuously transmitted over Wi-Fi to a central monitoring dashboard using lightweight communication protocols, enabling supervisors to detect hazardous situations instantly. The system includes real-time alert mechanisms through buzzers, LEDs, and notifications to mobile devices. A key focus was optimizing battery usage by implementing sleep modes, interrupt-driven data collection, and efficient power regulation, ensuring the system remains operational over extended periods without frequent charging. This solution was designed with scalability and modularity in mind, making it suitable for deployment across large industrial environments.',
-      image: 'src/data/img/Modern Creative Webinassr Facebook Post.png',
+      image: { proImg2 },
       category: 'Robotics',
       tags: ['C++', 'Worker Safety', 'Microcontroller', 'Autodesk AutoCAD', 'Internet of Things', 'Robotics', 'KiCad'],
       date: '2025',
@@ -38,7 +46,7 @@ const Projects: React.FC = () => {
       title: 'DC-DC Converter with Optocoupler',
       description: 'Designed a DC-DC converter with optocoupler-based feedback for efficient, isolated voltage regulation, featuring custom PCB and 3D circuit visualization.',
       longDescription: 'This project showcases the complete design, simulation, and implementation of a highly efficient DC-DC converter integrated with an optocoupler for isolated feedback control. The converter is engineered to regulate voltage precisely while maintaining electrical isolation between the input and output stages, enhancing both safety and reliability—especially in sensitive embedded or industrial applications. The design process included schematic development, simulation of power stage performance, and optimization for switching efficiency. A key feature of the design is the use of an optocoupler in the feedback loop, allowing for galvanic isolation while still enabling precise control of output voltage regulation. The final implementation involved creating a custom PCB layout optimized for heat dissipation and minimal noise interference. Visuals include a detailed 3D rendering of the fabricated PCB and a clear circuit diagram outlining the complete topology of the DC-DC converter with optocoupler integration. This project demonstrates a deep understanding of power electronics, control feedback systems, and PCB design best practices.',
-      image: 'src/data/img/awe.png',
+      image: { proImg3 },
       category: 'Robotics',
       tags: ['PCB Design', 'BLE', 'Cloud'],
       date: '2024',
@@ -51,7 +59,7 @@ const Projects: React.FC = () => {
       title: 'Industrial Sensor Network',
       description: 'Sensor network for industrial monitoring with wirelss and edge computing capabilities.',
       longDescription: 'Built a sensor network for industrial environments featuring count and weight, edge computing for real-time analytics, and integration with existing systems. The solution provides predictive maintenance capabilities and reduces downtime.',
-      image: 'src/data/img/Modern Creative Webinar Facebook Post (1).png',
+      image: { proImg4 },
       category: 'Industrial',
       tags: ['Python', 'Edge Computing', 'Microcontroller', 'Internet of Things'],
       date: '2025',
@@ -63,7 +71,7 @@ const Projects: React.FC = () => {
       id: 5,
       title: 'Smart Home IoT System',
       description: 'IoT-based home automation with ESP32 and React.',
-      image: 'src/data/img/erawer.png',
+      image: { proImg5 },
       tags: ['ESP32', 'MicroPython', 'MQTT'],
       date: '2023',
       category: 'IoT',
@@ -76,7 +84,7 @@ const Projects: React.FC = () => {
       title: 'Saving Lives with IoT',
       description: 'A life-saving IoT project using NodeMCU with thermal, gas, and humidity sensors to provide real-time data for smarter earthquake rescue operations.',
       longDescription: '"Saving Lives with IoT" is a project that aims to revolutionize earthquake rescue operations using advanced sensor technology. By deploying Node MCU boards equipped with thermal, gas, and temperature/humidity sensors, rescuers can gain real-time data on conditions within collapsed buildings. This information empowers them to make more informed decisions and potentially save lives.',
-      image: 'src/data/img/Screenshot 2024-08-12 104540.png',
+      image: { proImg6 },
       category: 'IoT',
       tags: ['Microcontroller', 'AutoCAD', 'Internet of Things', 'Robotics', 'Python'],
       date: '2021',
@@ -89,7 +97,7 @@ const Projects: React.FC = () => {
       title: 'Future Enginners',
       description: 'A life-saving IoT project using NodeMCU with thermal, gas, and humidity sensors to provide real-time data for smarter earthquake rescue operations.',
       longDescription: '"Saving Lives with IoT" is a project that aims to revolutionize earthquake rescue operations using advanced sensor technology. By deploying Node MCU boards equipped with thermal, gas, and temperature/humidity sensors, rescuers can gain real-time data on conditions within collapsed buildings. This information empowers them to make more informed decisions and potentially save lives.',
-      image: 'src/data/img/Modern Creative Webinar Facebook Post (2).png',
+      image: { proImg7 },
       category: 'IoT',
       tags: ['Microcontroller', 'Raspberry Pi ', 'Fusion 360', 'Internet of Things', 'Robotics', 'C', 'C++', 'Python'],
       date: '2025',

@@ -5,6 +5,8 @@ import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react';
 
 // Your projects data import
 import { projects } from '../data/projects';
+
+// Your projects image import
 import myImage from '../data/img/IMG_20240513_123827_902-01.jpeg.jpg';
 
 
