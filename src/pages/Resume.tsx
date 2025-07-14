@@ -48,18 +48,6 @@ const Resume: React.FC = () => {
         'Assisted in turning research ideas into practical developments.'
       ]
     },
-    // {
-    //   title: 'Junior Embedded Developer',
-    //   company: 'StartupTech',
-    //   location: 'Remote',
-    //   period: '2019 - 2020',
-    //   description: 'Contributed to the development of wearable health monitoring devices. Gained experience in low-power design and wireless communication protocols.',
-    //   achievements: [
-    //     'Developed BLE communication stack for wearable devices',
-    //     'Optimized battery life to achieve 7-day operation',
-    //     'Contributed to successful product launch and FDA approval'
-    //   ]
-    // }
   ];
 
   const education = [
@@ -69,7 +57,6 @@ const Resume: React.FC = () => {
       location: 'Dhaka, Bangladesh',
       period: '2021 - 2026',
       gpa: '3.2/4.0',
-      // honors: 'Summa Cum Laude',
       relevant: ['Embedded Systems Design', 'Digital Signal Processing', 'Integrate Circuit Architecture', 'Real-Time Systems']
     }
   ];
@@ -81,7 +68,6 @@ const Resume: React.FC = () => {
     'JavaScript Fundamentals – Stack School, 2020'
   ];
 
-
   const skills = {
     'Programming Languages': ['C/C++', 'MicroPython', 'Python', 'JavaScript', 'HTML/CSS'],
     'Embedded Systems': ['ESP32', 'Arduino', 'Raspberry Pi', 'PLC'],
@@ -90,7 +76,6 @@ const Resume: React.FC = () => {
     'Simulation & PCB Design': ['Proteus', 'Multisim', 'KiCad', 'PSpice', 'EasyEDA'],
     'Office & Documentation': ['Microsoft Excel', 'Word', 'PowerPoint']
   };
-
 
   return (
     <motion.div
@@ -110,14 +95,16 @@ const Resume: React.FC = () => {
             in embedded systems engineering.
           </p>
 
-          <motion.button
+          <motion.a
+            href="../data/resume/MD_HASIBUL_HASSAN_MOBIN.pdf" // Make sure resume.pdf is inside your public folder
+            download="Hasibul_Hassan_Mobin_Resume.pdf"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold flex items-center space-x-2 mx-auto shadow-lg hover:shadow-xl transition-shadow"
+            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold flex items-center space-x-2 mx-auto shadow-lg hover:shadow-xl transition-shadow inline-flex"
           >
             <Download className="w-5 h-5" />
             <span>Download PDF Resume</span>
-          </motion.button>
+          </motion.a>
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-12">
@@ -276,10 +263,6 @@ const Resume: React.FC = () => {
                         <span className="font-semibold text-gray-900">GPA: </span>
                         <span className="text-gray-700">{edu.gpa}</span>
                       </div>
-                      {/* <div>
-                        <span className="font-semibold text-gray-900">Honors: </span>
-                        <span className="text-purple-600 font-semibold">{edu.honors}</span>
-                      </div> */}
                     </div>
 
                     <div>
