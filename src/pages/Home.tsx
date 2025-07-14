@@ -5,6 +5,10 @@ import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react';
 
 // Your projects data import
 import { projects } from '../data/projects';
+import myImage from '../data/img/IMG_20240513_123827_902-01.jpeg.jpg';
+
+
+
 
 // Animation Variants for main container and items
 const containerVariants: Variants = {
@@ -315,7 +319,7 @@ const Home: React.FC = () => {
             <div className="relative">
               <motion.div whileHover={{ scale: 1.05 }} className="relative overflow-hidden rounded-2xl shadow-2xl">
                 <img
-                  src="src\data\img\IMG_20240513_123827_902-01.jpeg.jpg"
+                  src={myImage}
                   alt="Hasibul Hassan Mobin"
                   className="w-full h-96 object-cover"
                 />
