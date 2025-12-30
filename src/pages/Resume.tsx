@@ -1,8 +1,22 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Download, MapPin, Mail, Phone, Calendar, Award, Briefcase, GraduationCap, Code } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Download,
+  MapPin,
+  Mail,
+  Phone,
+  Calendar,
+  Award,
+  Briefcase,
+  GraduationCap,
+  Code,
+} from "lucide-react";
+import { supabase } from "../lib/supabaseClient";
 
 const Resume: React.FC = () => {
+  const [cv, setCV] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -25,57 +39,130 @@ const Resume: React.FC = () => {
     },
   };
 
+  useEffect(() => {
+    const fetchCV = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("cvs")
+          .select("*")
+          .eq("is_active", true)
+          .limit(1)
+          .maybeSingle();
+
+        if (error) {
+          console.error("Error fetching CV:", error);
+        } else {
+          setCV(data);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCV();
+  }, []);
+
+  const getPublicCVUrl = (path: string) => {
+    return supabase.storage.from("cv-files").getPublicUrl(path).data.publicUrl;
+  };
+
   const experience = [
     {
-      title: 'Junior Embedded Engineer',
-      company: 'Drishti',
-      location: 'Banani, Dhaka',
-      period: '2025 - Present',
-      description: 'Designed, developed, and tested embedded systems using ESP32 microcontroller. Wrote and optimized firmware in C, worked on Telegram bot integration for remote control and user interaction in automation projects. Assisted in PCB design, conducted testing, calibration, and documentation for client-ready solutions.',
+      title: "Junior Embedded Engineer",
+      company: "Drishti",
+      location: "Banani, Dhaka",
+      period: "2025 - Present",
+      description:
+        "Designed, developed, and tested embedded systems using ESP32 microcontroller. Wrote and optimized firmware in C, worked on Telegram bot integration for remote control and user interaction in automation projects. Assisted in PCB design, conducted testing, calibration, and documentation for client-ready solutions.",
       achievements: [
-        'Developed practical understanding of system debugging',
-        'Hardware-software integration',
-        'Troubleshooting the system'
-      ]
+        "Developed practical understanding of system debugging",
+        "Hardware-software integration",
+        "Troubleshooting the system",
+      ],
     },
     {
-      title: 'Junior researcher',
-      company: 'Research Expert ',
-      location: 'Dhaka',
-      period: '15 August 2024 – 15 September 2024 ',
-      description: 'Contributing to research and development initiatives.',
+      title: "Junior researcher",
+      company: "Research Expert ",
+      location: "Dhaka",
+      period: "15 August 2024 – 15 September 2024 ",
+      description: "Contributing to research and development initiatives.",
       achievements: [
-        'Assisted in turning research ideas into practical developments.'
-      ]
+        "Assisted in turning research ideas into practical developments.",
+      ],
     },
   ];
 
   const education = [
     {
-      degree: 'Bachelor of Science in Electrical and Electronics Engineering',
-      school: 'Dhaka University (Affiliated College)',
-      location: 'Dhaka, Bangladesh',
-      period: '2021 - 2026',
-      gpa: '3.2/4.0',
-      relevant: ['Embedded Systems Design', 'Digital Signal Processing', 'Integrate Circuit Architecture', 'Real-Time Systems']
-    }
+      degree: "Bachelor of Science in Electrical and Electronics Engineering",
+      school: "Dhaka University (Affiliated College)",
+      location: "Dhaka, Bangladesh",
+      period: "2021 - 2026",
+      gpa: "3.2/4.0",
+      relevant: [
+        "Embedded Systems Design",
+        "Digital Signal Processing",
+        "Integrate Circuit Architecture",
+        "Real-Time Systems",
+      ],
+    },
   ];
 
   const certifications = [
-    'Introduction to Networks – Certified by Cisco, 2023',
-    'Switching, Routing, and Wireless Essentials – Certified by Cisco, 2023',
-    'Programming Essentials in Python – Certified by Cisco, 2022',
-    'JavaScript Fundamentals – Stack School, 2020'
+    "Introduction to Networks – Certified by Cisco, 2023",
+    "Switching, Routing, and Wireless Essentials – Certified by Cisco, 2023",
+    "Programming Essentials in Python – Certified by Cisco, 2022",
+    "JavaScript Fundamentals – Stack School, 2020",
   ];
 
   const skills = {
-    'Programming Languages': ['C/C++', 'MicroPython', 'Python', 'JavaScript', 'HTML/CSS'],
-    'Embedded Systems': ['ESP32', 'Arduino', 'Raspberry Pi', 'PLC'],
-    'Protocols & Networking': ['CCNA (Networking Basics)', 'I2C', 'SPI', 'UART', 'MQTT', 'HTTP', 'WiFi', 'Bluetooth'],
-    'Tools & IDEs': ['Git', 'PlatformIO', 'VS Code', 'Firebase', 'Cisco Packet Tracer'],
-    'Simulation & PCB Design': ['Proteus', 'Multisim', 'KiCad', 'PSpice', 'EasyEDA'],
-    'Office & Documentation': ['Microsoft Excel', 'Word', 'PowerPoint']
+    "Programming Languages": [
+      "C/C++",
+      "MicroPython",
+      "Python",
+      "JavaScript",
+      "HTML/CSS",
+    ],
+    "Embedded Systems": ["ESP32", "Arduino", "Raspberry Pi", "PLC"],
+    "Protocols & Networking": [
+      "CCNA (Networking Basics)",
+      "I2C",
+      "SPI",
+      "UART",
+      "MQTT",
+      "HTTP",
+      "WiFi",
+      "Bluetooth",
+    ],
+    "Tools & IDEs": [
+      "Git",
+      "PlatformIO",
+      "VS Code",
+      "Firebase",
+      "Cisco Packet Tracer",
+    ],
+    "Simulation & PCB Design": [
+      "Proteus",
+      "Multisim",
+      "KiCad",
+      "PSpice",
+      "EasyEDA",
+    ],
+    "Office & Documentation": ["Microsoft Excel", "Word", "PowerPoint"],
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-24 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading resume...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div
@@ -88,30 +175,42 @@ const Resume: React.FC = () => {
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            My <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Resume</span>
+            My{" "}
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              Resume
+            </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-            A comprehensive overview of my professional experience, education, and achievements
-            in embedded systems engineering.
+            A comprehensive overview of my professional experience, education,
+            and achievements in embedded systems engineering.
           </p>
 
-          <motion.a
-            href="/mobin/MD_HASIBUL_HASSAN_MOBIN.pdf" // Make sure resume.pdf is inside your public folder
-            download="MD_HASIBUL_HASSAN_MOBIN.pdf"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold flex items-center space-x-2 mx-auto shadow-lg hover:shadow-xl transition-shadow inline-flex"
-          >
-            <Download className="w-5 h-5" />
-            <span>Download PDF Resume</span>
-          </motion.a>
+          {cv && cv.file_path ? (
+            <motion.a
+              href={getPublicCVUrl(cv.file_path)}
+              download
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold flex items-center space-x-2 mx-auto shadow-lg hover:shadow-xl transition-shadow inline-flex"
+            >
+              <Download className="w-5 h-5" />
+              <span>Download PDF Resume</span>
+            </motion.a>
+          ) : (
+            <p className="text-gray-500 italic">
+              CV download link not available
+            </p>
+          )}
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Left Column - Contact & Skills */}
           <div className="lg:col-span-1 space-y-8">
             {/* Contact Information */}
-            <motion.div variants={itemVariants} className="bg-white rounded-2xl shadow-lg p-6">
+            <motion.div
+              variants={itemVariants}
+              className="bg-white rounded-2xl shadow-lg p-6"
+            >
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                 <Mail className="w-6 h-6 mr-3 text-purple-600" />
                 Contact
@@ -133,7 +232,10 @@ const Resume: React.FC = () => {
             </motion.div>
 
             {/* Skills */}
-            <motion.div variants={itemVariants} className="bg-white rounded-2xl shadow-lg p-6">
+            <motion.div
+              variants={itemVariants}
+              className="bg-white rounded-2xl shadow-lg p-6"
+            >
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                 <Code className="w-6 h-6 mr-3 text-purple-600" />
                 Skills
@@ -141,7 +243,9 @@ const Resume: React.FC = () => {
               <div className="space-y-6">
                 {Object.entries(skills).map(([category, skillList]) => (
                   <div key={category}>
-                    <h3 className="font-semibold text-gray-900 mb-3">{category}</h3>
+                    <h3 className="font-semibold text-gray-900 mb-3">
+                      {category}
+                    </h3>
                     <div className="flex flex-wrap gap-2">
                       {skillList.map((skill, index) => (
                         <span
@@ -158,7 +262,10 @@ const Resume: React.FC = () => {
             </motion.div>
 
             {/* Certifications */}
-            <motion.div variants={itemVariants} className="bg-white rounded-2xl shadow-lg p-6">
+            <motion.div
+              variants={itemVariants}
+              className="bg-white rounded-2xl shadow-lg p-6"
+            >
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                 <Award className="w-6 h-6 mr-3 text-purple-600" />
                 Certifications
@@ -193,8 +300,12 @@ const Resume: React.FC = () => {
                   >
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900">{job.title}</h3>
-                        <p className="text-lg text-purple-600 font-semibold">{job.company}</p>
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {job.title}
+                        </h3>
+                        <p className="text-lg text-purple-600 font-semibold">
+                          {job.company}
+                        </p>
                       </div>
                       <div className="text-right">
                         <div className="flex items-center space-x-2 text-gray-500">
@@ -208,13 +319,20 @@ const Resume: React.FC = () => {
                       </div>
                     </div>
 
-                    <p className="text-gray-600 mb-4 leading-relaxed">{job.description}</p>
+                    <p className="text-gray-600 mb-4 leading-relaxed">
+                      {job.description}
+                    </p>
 
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Key Achievements:</h4>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        Key Achievements:
+                      </h4>
                       <ul className="space-y-2">
                         {job.achievements.map((achievement, achIndex) => (
-                          <li key={achIndex} className="flex items-start space-x-3">
+                          <li
+                            key={achIndex}
+                            className="flex items-start space-x-3"
+                          >
                             <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
                             <span className="text-gray-700">{achievement}</span>
                           </li>
@@ -243,8 +361,12 @@ const Resume: React.FC = () => {
                   >
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900">{edu.degree}</h3>
-                        <p className="text-lg text-purple-600 font-semibold">{edu.school}</p>
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {edu.degree}
+                        </h3>
+                        <p className="text-lg text-purple-600 font-semibold">
+                          {edu.school}
+                        </p>
                       </div>
                       <div className="text-right">
                         <div className="flex items-center space-x-2 text-gray-500">
@@ -260,13 +382,17 @@ const Resume: React.FC = () => {
 
                     <div className="grid md:grid-cols-2 gap-4 mb-4">
                       <div>
-                        <span className="font-semibold text-gray-900">GPA: </span>
+                        <span className="font-semibold text-gray-900">
+                          GPA:{" "}
+                        </span>
                         <span className="text-gray-700">{edu.gpa}</span>
                       </div>
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Relevant Coursework:</h4>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        Relevant Coursework:
+                      </h4>
                       <div className="flex flex-wrap gap-2">
                         {edu.relevant.map((course, courseIndex) => (
                           <span

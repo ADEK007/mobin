@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, MessageCircle, Facebook } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
+import { supabase } from '../lib/supabaseClient';
 
 const Contact: React.FC = () => {
   const { showToast } = useToast();
@@ -47,22 +48,21 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://clkbx.com/management_admin/con.php', {
-
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const { error } = await supabase.from('contact_messages').insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
         },
-        body: JSON.stringify(formData),
-      });
+      ]);
 
-      const result = await response.json();
-
-      if (result.success) {
+      if (error) {
+        console.error(error);
+        showToast('Failed to send message. Please try again.', 'error');
+      } else {
         showToast('Message sent successfully!', 'success');
         setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        showToast('Failed to send message. Please try again.', 'error');
       }
     } catch (error) {
       showToast('Error sending message. Please try again later.', 'error');
@@ -70,7 +70,6 @@ const Contact: React.FC = () => {
 
     setIsSubmitting(false);
   };
-
 
   const contactInfo = [
     {

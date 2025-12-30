@@ -207,47 +207,62 @@ const Home: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* RIGHT: Animated Graphic */}
-        <motion.div variants={itemVariants} className="relative">
-          <div className="relative w-full max-w-lg mx-auto">
-            <motion.div
-              animate={floatingAnimation}
-              className="w-80 h-80 mx-auto bg-gradient-to-br from-purple-400 via-blue-500 to-purple-600 rounded-full relative overflow-hidden shadow-2xl"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-4 border-2 border-white/30 rounded-full"
-              />
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-8 border border-white/20 rounded-full"
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-white text-6xl font-mono opacity-80">{'{ }'}</div>
-              </div>
-            </motion.div>
+        {/* RIGHT: Profile Image with Coding Hover Effect */}
+<motion.div variants={itemVariants} className="relative">
+  <div className="relative w-full max-w-lg mx-auto">
 
-            {/* Floating Icons */}
-            {[
-              { icon: '⚡', className: '-top-4 -left-4', duration: 4 },
-              { icon: '🔧', className: '-top-4 -right-4', duration: 3 },
-              { icon: '💡', className: '-bottom-4 -left-4', duration: 5 },
-              { icon: '🚀', className: '-bottom-4 -right-4', duration: 3.5 },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                animate={{ y: [5, -5, 5], rotate: [0, 5, 0] }}
-                transition={{ duration: item.duration, repeat: Infinity }}
-                className={`absolute ${item.className} w-16 h-16 bg-white rounded-xl shadow-lg flex items-center justify-center`}
-              >
-                <span className="text-2xl">{item.icon}</span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+    {/* Main Circle */}
+    <motion.div
+      animate={floatingAnimation}
+      whileHover={{ scale: 1.05 }}
+      className="group w-80 h-80 mx-auto rounded-full relative overflow-hidden shadow-2xl
+                 bg-gradient-to-br from-purple-400 via-blue-500 to-purple-600 p-[6px]"
+    >
+      {/* Rotating Ring */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 rounded-full border-2 border-white/30"
+      />
+
+      {/* Inner Image Container */}
+      <div className="w-full h-full rounded-full overflow-hidden bg-white relative">
+        <motion.img
+          src={myImage}
+          alt="Hasibul Hassan Mobin"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+
+        {/* Hover Overlay (Coding Feel) */}
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+          <span className="text-white text-5xl font-mono tracking-widest">
+            {"{ }"}
+          </span>
+        </div>
       </div>
+    </motion.div>
+
+    {/* Floating Icons */}
+    {[
+      { icon: "⚡", className: "-top-4 -left-4", duration: 4 },
+      { icon: "🔧", className: "-top-4 -right-4", duration: 3 },
+      { icon: "💡", className: "-bottom-4 -left-4", duration: 5 },
+      { icon: "🚀", className: "-bottom-4 -right-4", duration: 3.5 },
+    ].map((item, i) => (
+      <motion.div
+        key={i}
+        animate={{ y: [5, -5, 5], rotate: [0, 5, 0] }}
+        transition={{ duration: item.duration, repeat: Infinity }}
+        className={`absolute ${item.className} w-16 h-16 bg-white rounded-xl shadow-lg
+                    flex items-center justify-center`}
+      >
+        <span className="text-2xl">{item.icon}</span>
+      </motion.div>
+    ))}
+  </div>
+</motion.div>
+      </div>
+
 
       {/* Featured Projects Section */}
       <motion.div variants={itemVariants} className="mt-28 w-full max-w-6xl mx-auto px-4">
