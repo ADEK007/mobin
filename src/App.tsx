@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import PublicLayout from "./layouts/PublicLayout";
@@ -30,7 +30,7 @@ import { ToastProvider } from "./context/ToastContext";
 function App() {
   return (
     <ToastProvider>
-      <Router basename="/mobin">
+      <Router>
         <AnimatePresence mode="wait">
           <Routes>
             {/* 🌍 Public Layout */}
@@ -114,7 +114,7 @@ function App() {
               />
             </Route>
 
-            {/* ❌ GLOBAL 404 — NO SIDEBAR */}
+            {/* ❌ GLOBAL 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
