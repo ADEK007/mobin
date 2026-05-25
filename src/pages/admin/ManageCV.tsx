@@ -171,36 +171,31 @@ export default function ManageCV() {
 
   // Set Active CV
   const setActive = async (id: string) => {
-    if (
-      !window.confirm(
-        "Set this CV as the active version? It will replace the current active CV."
-      )
-    ) {
-      return;
-    }
+  try {
+    // First deactivate all
+    const { error: offError } = await supabase
+      .from("cvs")
+      .update({ is_active: false })
+      .neq("id", "");
 
-    try {
-      // Deactivate all CVs first
-      const { error: offError } = await supabase
-        .from("cvs")
-        .update({ is_active: false });
+    if (offError) throw offError;
 
-      if (offError) throw offError;
+    // Activate selected one
+    const { error: onError } = await supabase
+      .from("cvs")
+      .update({ is_active: true })
+      .eq("id", id);
 
-      // Activate selected CV
-      const { error: onError } = await supabase
-        .from("cvs")
-        .update({ is_active: true })
-        .eq("id", id);
+    if (onError) throw onError;
 
-      if (onError) throw offError;
+    await loadCVs();
 
-      await loadCVs();
-      showToast("CV set as active!", "success");
-    } catch (err: any) {
-      showToast(`Error: ${err.message}`, "error");
-    }
-  };
+    showToast("CV set as active!", "success");
+  } catch (err: any) {
+    console.error(err);
+    showToast(err.message, "error");
+  }
+};
 
   // Delete CV
   const deleteCV = async (cv: CV) => {
