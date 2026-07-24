@@ -5,10 +5,14 @@ import {
   PenTool,
   FileText,
   Mail,
+  Menu,
+  X
 } from "lucide-react";
+import { useState } from "react";
 
 export default function AdminLayout() {
   const location = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // 🔐 Login page check
   const isLoginPage = location.pathname === "/admin/login";
@@ -23,14 +27,35 @@ export default function AdminLayout() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white p-5">
-        <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
+      <aside className={`
+        fixed md:static top-0 left-0 z-50 w-64 h-full bg-gray-900 text-white p-5
+        transform transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+      `}>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold">Admin Panel</h2>
+          <button 
+            onClick={() => setSidebarOpen(false)}
+            className="md:hidden p-2 hover:bg-gray-700 rounded"
+          >
+            <X size={20} />
+          </button>
+        </div>
 
         <nav className="space-y-2">
           {/* Dashboard */}
           <NavLink
             to="/admin/dashboard"
+            onClick={() => setSidebarOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-2 px-3 py-2 rounded ${
                 isActive ? "bg-purple-600" : "hover:bg-gray-700"
@@ -44,6 +69,7 @@ export default function AdminLayout() {
           {/* Create Category */}
           <NavLink
             to="/admin/create-category"
+            onClick={() => setSidebarOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-2 px-3 py-2 rounded ${
                 isActive ? "bg-purple-600" : "hover:bg-gray-700"
@@ -57,6 +83,7 @@ export default function AdminLayout() {
           {/* Create Blog */}
           <NavLink
             to="/admin/create-blog"
+            onClick={() => setSidebarOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-2 px-3 py-2 rounded ${
                 isActive ? "bg-purple-600" : "hover:bg-gray-700"
@@ -70,6 +97,7 @@ export default function AdminLayout() {
           {/* Manage Blogs */}
           <NavLink
             to="/admin/blogs"
+            onClick={() => setSidebarOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-2 px-3 py-2 rounded ${
                 isActive ? "bg-purple-600" : "hover:bg-gray-700"
@@ -83,6 +111,7 @@ export default function AdminLayout() {
           {/* Contact Messages */}
           <NavLink
             to="/admin/contact-messages"
+            onClick={() => setSidebarOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-2 px-3 py-2 rounded ${
                 isActive ? "bg-purple-600" : "hover:bg-gray-700"
@@ -95,7 +124,8 @@ export default function AdminLayout() {
 
           {/* Manage CV */}
           <NavLink
-            to="/admin/Manage-CV"
+            to="/admin/manage-cv"
+            onClick={() => setSidebarOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-2 px-3 py-2 rounded ${
                 isActive ? "bg-purple-600" : "hover:bg-gray-700"
@@ -108,10 +138,24 @@ export default function AdminLayout() {
         </nav>
       </aside>
 
-      {/* Page Content */}
-      <main className="flex-1 p-6">
-        <Outlet />
-      </main>
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        {/* Mobile Header */}
+        <header className="md:hidden bg-white shadow p-4 flex items-center">
+          <button 
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 hover:bg-gray-100 rounded"
+          >
+            <Menu size={24} />
+          </button>
+          <h2 className="ml-4 text-xl font-bold text-gray-800">Admin Panel</h2>
+        </header>
+
+        {/* Page Content */}
+        <main className="flex-1 p-4 md:p-6">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }

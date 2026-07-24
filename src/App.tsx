@@ -105,13 +105,22 @@ function App() {
               />
 
               <Route
-                path="/admin/manage-cv"
-                element={
-                  <ProtectedRoute>
-                    <ManageCV />
-                  </ProtectedRoute>
-                }
-              />
+            path="/admin/manage-cv"
+            element={
+              <ProtectedRoute>
+                <ManageCV />
+              </ProtectedRoute>
+            }
+          />
+          {/* Also support the old route for backwards compatibility */}
+          <Route
+            path="/admin/Manage-CV"
+            element={
+              <ProtectedRoute>
+                <ManageCV />
+              </ProtectedRoute>
+            }
+          />
             </Route>
 
             {/* ❌ GLOBAL 404 */}

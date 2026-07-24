@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 
 // Your projects data import
@@ -34,7 +35,7 @@ const itemVariants: Variants = {
 };
 
 const floatingAnimation = {
-  y: [-10, 10, -10],
+  y: [-10, 10, -10] as [number, number, number],
   transition: {
     duration: 3,
     repeat: Infinity,
@@ -277,46 +278,46 @@ const Home: React.FC = () => {
       </div>
 
       {/* Featured Projects Section */}
-      <motion.div
-        variants={itemVariants}
-        className="mt-28 w-full max-w-6xl mx-auto px-4"
-      >
-        <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
-          Featured <span className="text-purple-600">Projects</span>
-        </h2>
+          <motion.div
+            variants={itemVariants}
+            className="mt-20 w-full max-w-6xl mx-auto px-4"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+              Featured <span className="text-purple-600">Projects</span>
+            </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-8 gap-y-8">
-          {featuredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-5"
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-40 object-cover rounded-lg mb-4"
-              />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {project.title}
-              </h3>
-              <p className="text-gray-600 mb-3 text-sm">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2 text-sm">
-                {project.tags.slice(0, 3).map((tag, i) => (
-                  <span
-                    key={i}
-                    className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-x-8 md:gap-y-8">
+              {featuredProjects.map((project) => (
+                <div
+                  key={project.id}
+                  className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-3 md:p-5"
+                >
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-32 md:h-40 object-cover rounded-lg mb-3 md:mb-4"
+                  />
+                  <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-1 md:mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 mb-2 md:mb-3 text-xs md:text-sm">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1 md:gap-2 text-xs md:text-sm">
+                    {project.tags.slice(0, 3).map((tag, i) => (
+                      <span
+                        key={i}
+                        className="bg-purple-100 text-purple-700 px-2 py-1 md:px-3 md:py-1 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className="text-center mt-10">
+            <div className="text-center mt-10">
           <Link to="/projects">
             <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full font-medium hover:shadow-lg transition">
               See All Projects
@@ -419,30 +420,32 @@ const Home: React.FC = () => {
               My Journey
             </h2>
             <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 to-blue-600 rounded-full"></div>
+              {/* Timeline Line - Left aligned for mobile, centered for desktop */}
+              <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 to-blue-600 rounded-full"></div>
 
               <div className="space-y-12">
                 {timeline.map((item, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                    initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.2 }}
-                    className={`flex items-center ${
-                      index % 2 === 0 ? "flex-row" : "flex-row-reverse"
-                    }`}
+                    className="relative flex items-start md:items-center"
                   >
+                    {/* Timeline Node */}
+                    <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-5 h-5 bg-white border-4 border-purple-600 rounded-full z-10"></div>
+
+                    {/* Content - Full width for mobile, alternating for desktop */}
                     <div
-                      className={`w-1/2 ${
-                        index % 2 === 0 ? "pr-8 text-right" : "pl-8"
+                      className={`w-full pl-20 md:pl-0 md:w-1/2 ${
+                        index % 2 === 0 ? "md:pr-8 md:text-right" : "md:pl-8 md:ml-auto"
                       }`}
                     >
                       <motion.div
                         whileHover={{ scale: 1.05 }}
-                        className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-purple-600"
+                        className="bg-white rounded-xl shadow-lg p-6 border-l-4 md:border-l-4 border-purple-600"
                       >
-                        <div className="flex items-center space-x-3 mb-3">
+                        <div className={`flex items-start space-x-3 mb-3 ${index % 2 === 0 ? "md:flex-row-reverse md:space-x-3 md:space-x-reverse" : ""}`}>
                           <div
                             className={`w-10 h-10 rounded-lg bg-gradient-to-r ${
                               item.type === "education"
@@ -452,11 +455,11 @@ const Home: React.FC = () => {
                                 : item.type === "achievement"
                                 ? "from-yellow-400 to-orange-500"
                                 : "from-blue-400 to-purple-500"
-                            } flex items-center justify-center text-white`}
+                            } flex-shrink-0 flex items-center justify-center text-white z-20`}
                           >
                             {item.icon}
                           </div>
-                          <div>
+                          <div className={`flex-1 ${index % 2 === 0 ? "md:text-right" : ""}`}>
                             <div className="text-sm font-semibold text-purple-600">
                               {item.year}
                             </div>
@@ -468,13 +471,6 @@ const Home: React.FC = () => {
                         <p className="text-gray-600">{item.description}</p>
                       </motion.div>
                     </div>
-
-                    {/* Timeline Node */}
-                    <div className="relative z-10">
-                      <div className="w-4 h-4 bg-white border-4 border-purple-600 rounded-full"></div>
-                    </div>
-
-                    <div className="w-1/2"></div>
                   </motion.div>
                 ))}
               </div>
@@ -486,7 +482,7 @@ const Home: React.FC = () => {
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
               Soft Skills
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
               {softSkills.map((skill, index) => (
                 <motion.div
                   key={index}
@@ -494,17 +490,17 @@ const Home: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -10, scale: 1.05 }}
-                  className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300"
+                  className="bg-white rounded-xl shadow-lg p-4 md:p-6 text-center hover:shadow-xl transition-all duration-300"
                 >
                   <div
-                    className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-r ${skill.color} flex items-center justify-center text-white`}
+                    className={`w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-xl bg-gradient-to-r ${skill.color} flex items-center justify-center text-white`}
                   >
                     {skill.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">
                     {skill.skill}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
                     {skill.description}
                   </p>
                 </motion.div>

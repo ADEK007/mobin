@@ -38,8 +38,8 @@ export default function Blog() {
           My <span className="text-purple-600">Blog</span>
         </h1>
 
-        {/* GRID: max 4 per row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {/* GRID: 2 per row on mobile, up to 4 on desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {categories.map((cat) => (
             <Link
               key={cat.id}
@@ -47,7 +47,7 @@ export default function Blog() {
               className="group bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden"
             >
               {/* 🖼️ Portrait Image Container */}
-              <div className="w-full h-[420px] bg-gray-100 flex items-center justify-center">
+              <div className="w-full h-[200px] sm:h-[280px] md:h-[350px] lg:h-[420px] bg-gray-100 flex items-center justify-center">
                 <img
                   src={cat.thumbnail_url || "/no-image.jpg"}
                   alt={cat.title}

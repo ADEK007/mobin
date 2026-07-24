@@ -1,0 +1,6 @@
+# robots.txt for Hasibul Hassan Mobin Portfolio
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://adek007.github.io/mobin/sitemap.xml

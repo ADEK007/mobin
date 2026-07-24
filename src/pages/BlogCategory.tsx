@@ -64,8 +64,8 @@ export default function BlogCategory() {
           {category?.title}
         </h1>
 
-        {/* ✅ Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {/* ✅ Responsive Grid: 2 per row on mobile */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {blogs.map((blog) => (
             <motion.div
               key={blog.id}
@@ -79,7 +79,7 @@ export default function BlogCategory() {
                 <img
                   src={blog.cover_image}
                   alt={blog.title}
-                  className="w-full h-56 object-cover"
+                  className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-cover"
                 />
               )}
 

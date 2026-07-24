@@ -16,12 +16,17 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
   const navItems = [
     { path: '/', label: 'Home', icon: <Code className="w-4 h-4" /> },
     { path: '/skills', label: 'Skills', icon: <Award className="w-4 h-4" /> },
     { path: '/projects', label: 'Projects', icon: <Briefcase className="w-4 h-4" /> },
     { path: '/resume', label: 'Resume', icon: <FileText className="w-4 h-4" /> },
-    { path: '/Blog', label: 'Blog', icon: <User className="w-4 h-4" /> },
+    { path: '/blog', label: 'Blog', icon: <User className="w-4 h-4" /> },
     { path: '/contact', label: 'Contact', icon: <Mail className="w-4 h-4" /> },
   ];
 
@@ -29,7 +34,7 @@ const Navbar: React.FC = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      className={`fixed w-full z-[9999] transition-all duration-300 ${scrolled || isOpen ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,7 +82,7 @@ const Navbar: React.FC = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors z-10"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -86,8 +91,8 @@ const Navbar: React.FC = () => {
         {/* Mobile Navigation */}
         <motion.div
           initial={false}
-          animate={{ height: isOpen ? 'auto' : 0 }}
-          className="md:hidden overflow-hidden"
+          animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+          className="md:hidden overflow-hidden bg-white/98 backdrop-blur-sm border-t border-gray-100"
         >
           <div className="py-4 space-y-2">
             {navItems.map((item) => (
