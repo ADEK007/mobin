@@ -172,11 +172,10 @@ export default function ManageCV() {
   // Set Active CV
   const setActive = async (id: string) => {
   try {
-    // First deactivate all
+    // First deactivate all - update all records without WHERE clause
     const { error: offError } = await supabase
       .from("cvs")
-      .update({ is_active: false })
-      .neq("id", "");
+      .update({ is_active: false });
 
     if (offError) throw offError;
 
